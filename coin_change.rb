@@ -1,4 +1,5 @@
-def exchange(clist, change, min_coins, coins_used)
+
+def exchange(clist, change, min_coins, coins_used, available_coins)
   0.upto(change) do |cents|
     coin_counter = cents
     new_coin = 1
@@ -14,6 +15,14 @@ def exchange(clist, change, min_coins, coins_used)
   end
 
   min_coins[change]
+  coin = change
+  this_coin = []
+  while coin > 0 do
+    this_coin << coins_used[coin]
+    coin = coin - this_coin.last
+  end
+
+  p this_coin
 end
 
 def print_coins(coins_used, change)
@@ -26,10 +35,10 @@ def print_coins(coins_used, change)
 end
 
 
-amnt = 13
-clist = [1, 5, 10]
+amnt = 189
+clist = [1, 2, 5, 10, 25, 50]
 coins_used = Array.new(amnt) { 0 }
 coins_count = Array.new(amnt) { 0 }
+available_coins = {50 => 3, 25 => 4}
 
-exchange(clist, amnt, coins_count, coins_used)
-print_coins(coins_used, amnt)
+exchange(clist, amnt, coins_count, coins_used, available_coins)
